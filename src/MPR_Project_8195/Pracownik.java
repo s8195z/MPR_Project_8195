@@ -2,7 +2,7 @@ package MPR_Project_8195;
 
 public class Pracownik {
 
-	private  int id;
+	public  int id;
 	private String imie;
 	private  String nazwisko;
 	private  double wynagrodzenie;
@@ -45,7 +45,14 @@ public class Pracownik {
         this.id=id;
      }
     
-    
+     public int getWiek(){
+         return this.wiek;
+      }
+
+      public void setWiek(int wiek){
+         this.wiek=wiek;
+      }
+     
  
     public double getWynagrodzenie()
     {
@@ -54,6 +61,7 @@ public class Pracownik {
     public void setWynagrodzenie(double wynagrodzenie){
         this.wynagrodzenie=wynagrodzenie;
     }
+
     
     @Override
     public String toString () {

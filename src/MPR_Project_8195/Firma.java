@@ -59,6 +59,7 @@
         	  for (Object o : arr) {
         		  System.out.println(o);
         	  }
+        	  System.out.println();
           }
           
           public void drukujPracownikow () {
@@ -78,54 +79,97 @@
         	  drukujPracownikow ();
           }
           
+          public void drukujPracownikByNazwisko (String nazwisko) {
+        	  try {
+        		System.out.println("Pracownik o nazwisku " + nazwisko + ": ");
+				System.out.println(searchPracownikByNazwisko(nazwisko) + "\n");
+			} catch (MyException e) {
+				e.drukujBlad();
+			}
+          }
+          
+          public void drukujPracownikByPhrase (String phrase) {
+        	  try {
+        		System.out.println("Pracownik z fraza " + phrase + ": ");
+        		drukujListe(searchPracownikByPhrase(phrase));
+			} catch (MyException e) {
+				e.drukujBlad();
+			}
+          }
+          
+          public void drukujPracownikByImie (String imie) {
+        	  try {
+        		System.out.println("Pracownik o imieniu " + imie + ": ");
+        		drukujListe(searchPracownikByImie(imie));
+			} catch (MyException e) {
+				e.drukujBlad();
+			}
+          }
+          
+
+          public void drukujDzialByPhrase(String phrase) {
+        	  System.out.println("Dzialy z fraza " + phrase + ": ");
+        	  try {
+				drukujListe(searchDzialByPhrase(phrase));
+			} catch (MyException e) {
+				e.drukujBlad();
+			}
+          }
+    	  
+          
+          public void drukujDzialByNazwa(String nazwa) {
+        	  System.out.println("Dzial o nazwie " + nazwa + ": ");
+        	  try {
+				System.out.println(searchDzialByNazwa(nazwa));
+				System.out.println();
+			} catch (MyException e) {
+				e.drukujBlad();
+			}
+          }
+          
           /* Dzialania na listach */
           
-          public void searchPracownikByPhrase (String phrase) {
+          public ArrayList<Pracownik> searchPracownikByPhrase (String phrase) throws MyException {
         	  
-        	  System.out.println("Pracownicy z fraza " + phrase + ": ");
-        	  
-        	  int licznik = 0;
+        	  ArrayList<Pracownik> arr = new ArrayList<Pracownik>();
         	  
         	  for (Pracownik p : pracownicy) {
         		  if (p.getImie().toLowerCase().indexOf(phrase.toLowerCase()) != -1
         				  || p.getNazwisko().toLowerCase().indexOf(phrase) != -1) {
         			  
-        			  System.out.println(p);
-        			  licznik++;
+        			  arr.add(p);
         		  }
         	  }
-        	  
-        	  if (licznik == 0) System.out.println("Brak pracownika z fraz¹…" + phrase + " w imieniu lub nazwisku.");
+
+        	  if (arr.isEmpty()) throw new MyException("Brak pracownika z fraz¹…" + phrase + " w imieniu lub nazwisku.");
+        	  else return arr;
           }
           
-          public void searchPracownikByImie (String imie) {
+          public ArrayList<Pracownik> searchPracownikByImie (String imie) throws MyException {
         	  
-        	  System.out.println("Pracownicy o imieniu " + imie + ": ");
-        	  
-        	  int licznik = 0;
+        	  ArrayList<Pracownik> arr = new  ArrayList<Pracownik>();
         	  
         	  for (Pracownik p : pracownicy) {
         		  if (p.getImie() == imie) {
-        			  System.out.println(p);
-        			  licznik++;
+        			  arr.add(p);
         		  }
         	  }
         	  
-        	  if (licznik == 0) System.out.println("Brak pracownika o imieniu" + imie + ".");
+        	  if (arr.isEmpty()) throw new MyException("Brak pracownika o imieniu" + imie + ".");
+        	  else return arr;
           }
           
-          public void searchPracownikByNazwisko (String nazwisko) throws MyException {
+          public Pracownik searchPracownikByNazwisko (String nazwisko) throws MyException {
         	  try {
-        		  System.out.println("Pracownik o nazwisku " + nazwisko + ": ");
-        		  Pracownik p = getPracRef(nazwisko);
-        		  System.out.println(p);
+        		  
+        		  return getPracRef(nazwisko);
         	  }
         	  catch (MyException e) {
-        		  e.drukujBlad();
+        		  throw e;
         	  }
-          }
+          }          
         	
-          private Pracownik getPracRef (String nazwisko) throws MyException{
+          private Pracownik getPracRef (String nazwisko) throws MyException {
         	  
         	  for (Pracownik p : pracownicy) {
         		  if (p.getNazwisko() == nazwisko) return p;
@@ -145,44 +189,38 @@
         	  }
           }
           
-          public void deletePracownik (Pracownik p) {
+          public void deletePracownik (String nazwisko) {
         	  
         	  try {
-        		  pracownicy.remove(getPracRef(p.getNazwisko()));
+        		  pracownicy.remove(getPracRef(nazwisko));
         	  }
         	  catch (Exception e) {
-        		  System.out.println("Taki pracownik nie pracuje w firmie.");
+        		  System.out.println("Pracownik o nazwisku " + nazwisko + " nie pracuje w firmie.");
         	  }
         	  
           }
  
           /* Dzialania na dzialach */
           
-          public void searchDzialByPhrase (String phrase) {
+          public ArrayList<Dzial> searchDzialByPhrase (String phrase) throws MyException {
         	  
-        	  System.out.println("Dzialy z fraza " + phrase + ": ");
-        	  
-        	  int licznik = 0;
+        	  ArrayList<Dzial> arr = new ArrayList<Dzial>();
         	  
         	  for (Dzial d : dzialy) {
         		  if (d.getNazwa().toLowerCase().indexOf(phrase.toLowerCase()) != -1) {
-        			  
-        			  System.out.println(d);
-        			  licznik++;
+        			  arr.add(d);
         		  }
         	  }
-        	  
-        	  if (licznik == 0) System.out.println("Brak dzialu z frazÄ…" + phrase + " w nazwie.");
+        	  if (arr.isEmpty()) throw new MyException("Brak dzialu z fraz¹: " + phrase + " w nazwie.");
+        	  else return arr;
           }
           
-          public void searchDzialByNazwa (String nazwa) throws MyException {
+          public Dzial searchDzialByNazwa (String nazwa) throws MyException {
         	  try {
-        		  System.out.println("Dzial o nazwie " + nazwa + ": ");
-        		  Dzial d = getDzialRef(nazwa);
-        		  System.out.println(d + "\n");
+        		  return getDzialRef(nazwa);
         	  }
         	  catch (MyException e) {
-        		  e.drukujBlad();
+        		  throw e;
         	  }
           }
           
@@ -205,13 +243,13 @@
         	  }
           }
           
-          public void deleteDzial (Dzial d) {
+          public void deleteDzial (String nazwa) {
         	  
         	  try {
-        		  dzialy.remove(getDzialRef(d.getNazwa()));
+        		  dzialy.remove(getDzialRef(nazwa));
         	  }
         	  catch (Exception e) {
-        		  System.out.println("Ten dzial nie funkcjonuje w firmie.");
+        		  System.out.println("Dzial o nazwie " + nazwa + " nie funkcjonuje w firmie.");
         	  }
         	  
           }

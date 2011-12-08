@@ -12,6 +12,7 @@ public class MyException extends Exception {
 	
 	public void drukujBlad () {
 		System.out.println(message);
+		System.out.println();
 	}
 
 }
