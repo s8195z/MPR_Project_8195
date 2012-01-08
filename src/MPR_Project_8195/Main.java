@@ -1,5 +1,7 @@
 package MPR_Project_8195;
 
+import com.pl.aga.services.PracownikDBManager;
+
 public class Main {
 
 public static void main(String[] args) throws Exception {
@@ -17,6 +19,12 @@ public static void main(String[] args) throws Exception {
       firma.addDzial(new Dzial(3, "Sprzedaz"));
       firma.addDzial(new Dzial(4, "Dlatestowsprzedaz"));
           
+      
+      
+      PracownikDBManager db = new PracownikDBManager ();
+      db.addPracownik(new Pracownik("Adam","Poniedzialek", 1, 689, 54));
+      
+      
       
       /* Testowanie dzialow */
       
