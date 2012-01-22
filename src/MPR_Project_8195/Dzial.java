@@ -1,6 +1,11 @@
 package MPR_Project_8195;
 
+
+@Entity
 public class Dzial {
+
+	@Id
+	@GeneratedValue
 	
 	private int ID_dzial;
 	private String Nazwa;
@@ -10,7 +15,9 @@ public class Dzial {
 		this.ID_dzial = id_dzial;
 		this.Nazwa=nazwa;	
 	}
-
+	
+	@ManyToOne
+	
 	public String getNazwa() {
 		return Nazwa;
 	}
@@ -30,9 +37,9 @@ public class Dzial {
 		
 	}
 
-	//@Override
+	@Override
 	public String toString () {
-		return "ID dzia³u: " + ID_dzial + ". Nazwa: " + Nazwa;
+		return "ID dziaï¿½u: " + ID_dzial + ". Nazwa: " + Nazwa;
 	}
 	
     //zamiast funkcji

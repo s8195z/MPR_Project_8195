@@ -2,15 +2,24 @@
    package MPR_Project_8195;
 
     import java.util.ArrayList;
-    import java.util.List;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
+    @Entity
     public class Firma {
 
     	private String nazwa; 
-
+    
+    	@OneToMany(mappedBy="zawiera", cascade=javax.persistence.CascadeType.PERSIST)
+    	
          private List<Pracownik> pracownicy= new ArrayList<Pracownik>();
-         private List<Dzial> dzialy= new ArrayList<Dzial>();
+         @OneToMany(mappedBy="zawiera", cascade=javax.persistence.CascadeType.PERSIST)
+		
+		 private List<Pracownik> pracownicy= new ArrayList<Pracownik>();
+
+		private List<Dzial> dzialy= new ArrayList<Dzial>();
          
          public Firma(String nazwa, List<Pracownik> pracownicy , List<Dzial> dzialy)
           {
@@ -141,7 +150,7 @@
         		  }
         	  }
 
-        	  if (arr.isEmpty()) throw new MyException("Brak pracownika z fraz¹…" + phrase + " w imieniu lub nazwisku.");
+        	  if (arr.isEmpty()) throw new MyException("Brak pracownika z frazï¿½ï¿½" + phrase + " w imieniu lub nazwisku.");
         	  else return arr;
           }
           
@@ -211,7 +220,7 @@
         			  arr.add(d);
         		  }
         	  }
-        	  if (arr.isEmpty()) throw new MyException("Brak dzialu z fraz¹: " + phrase + " w nazwie.");
+        	  if (arr.isEmpty()) throw new MyException("Brak dzialu z frazï¿½: " + phrase + " w nazwie.");
         	  else return arr;
           }
           

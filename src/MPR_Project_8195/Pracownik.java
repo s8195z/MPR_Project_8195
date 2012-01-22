@@ -1,7 +1,15 @@
 package MPR_Project_8195;
 
-public class Pracownik {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
+@GeneratedValue
+
+public class Pracownik {
+	@Id
 	public  int id;
 	private String imie;
 	private  String nazwisko;
@@ -17,7 +25,7 @@ public class Pracownik {
            this.wynagrodzenie=wynagrodzenie;
            this.wiek=wiek;
      }
-      
+    @ManyToOne
       public String getImie(){
           return imie;
        }
@@ -65,7 +73,7 @@ public class Pracownik {
     
     @Override
     public String toString () {
-    	return "\nID: "+id+"\n Imiê: "+imie+"\n Nazwisko: "+nazwisko+"\n Wynagrodzenie: "+wynagrodzenie+"\n Wiek: "+wiek+"\n ";
+    	return "\nID: "+id+"\n Imiï¿½: "+imie+"\n Nazwisko: "+nazwisko+"\n Wynagrodzenie: "+wynagrodzenie+"\n Wiek: "+wiek+"\n ";
     }
 
 }  

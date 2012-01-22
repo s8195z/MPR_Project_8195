@@ -1,6 +1,13 @@
 package MPR_Project_8195;
 
+import javax.security.auth.login.Configuration;
+
 import com.pl.aga.services.PracownikDBManager;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.classic.Session;
+
 
 public class Main {
 
@@ -19,10 +26,14 @@ public static void main(String[] args) throws Exception {
       firma.addDzial(new Dzial(3, "Sprzedaz"));
       firma.addDzial(new Dzial(4, "Dlatestowsprzedaz"));
           
+     SessionFactory sessionFactory = new Configuration().configure().buildSessionFactroy();
+     Session session = sessionFactory.openSession(); //otwiera polaczenie z baza danych
+     session.beginTransaction();
+     session.save(p);   //wrzucamy obiekt do bazy
+     session.gettransaction().commit();
       
-      
-      PracownikDBManager db = new PracownikDBManager ();
-      db.addPracownik(new Pracownik("Adam","Poniedzialek", 1, 689, 54));
+      //PracownikDBManager db = new PracownikDBManager ();
+     // db.addPracownik(new Pracownik("Adam","Poniedzialek", 1, 689, 54));
       
       
       
